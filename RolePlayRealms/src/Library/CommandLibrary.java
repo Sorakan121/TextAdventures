@@ -140,7 +140,42 @@ public class CommandLibrary {
 
                         clientHandler.setSelectedCharacter(character);
 
-                        //this is where the code for requesting the user's desired cantrips and spells will be if their chosen class allows it
+                        for (Trait trait :character.getTraits()) {
+                            for (Effect effect : trait.getEffects()) {
+                                if (effect instanceof Spellcasting) {
+                                    clientHandler.privateMessage("Your chosen Class allows for the selection" +
+                                            " of " + ((Spellcasting) effect).getAvailableCantrips() + " Cantrips and "
+                                    + ((Spellcasting) effect).getAvailableSpells() + " Spells.\nPlease select your desired" +
+                                            " Cantrips: \n");
+
+                                    int x = 0;
+                                    while (x < ((Spellcasting) effect).getAvailableCantrips()) {
+                                        for (Spell spell : selectedJob.getJobCantrips()) {
+                                            clientHandler.privateMessage(spell.getName() + "\n");
+                                            clientHandler.privateMessage(spell.getDescription() + "\n");
+                                        }
+
+                                        String cantripName = clientHandler.listenForClientResponse();
+                                        Spell newCantrip = spellLibrary.getSpell(cantripName);
+                                        character.addCantrip(newCantrip);
+                                        x++;
+                                    }
+
+                                    x = 0;
+                                    while ( (x < ((Spellcasting) effect).getAvailableSpells())) {
+                                        for (Spell spell : selectedJob.getJobSpells()) {
+                                            clientHandler.privateMessage(spell.getName() + "\n");
+                                            clientHandler.privateMessage(spell.getDescription() + "\n");
+                                        }
+
+                                        String spellName = clientHandler.listenForClientResponse();
+                                        Spell newSpell = spellLibrary.getSpell(spellName);
+                                        character.addSpell(newSpell);
+                                        x++;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (systemCommand.equals("DealDamage")) {
