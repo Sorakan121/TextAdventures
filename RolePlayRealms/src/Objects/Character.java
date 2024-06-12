@@ -13,11 +13,18 @@ public class Character {
     private MainLibrary mainLibrary;
     private final Race selectedRace;
     private final Job selectedJob;
+    private ArrayList<Trait> traits;
+    private ArrayList<Spell> knownSpells, knownCantrips;
 
     public Character(String name, Race selectedRace, Job selectedJob) {
         this.name = name;
         this.selectedRace = selectedRace;
         this.selectedJob = selectedJob;
+        this.traits = new ArrayList<>();
+        this.knownSpells = new ArrayList<>();
+        this.knownCantrips = new ArrayList<>();
+
+        updateTraits();
     }
 
     public String getName() {
@@ -118,12 +125,30 @@ public class Character {
         return statTotal;
     }
 
+    private void updateTraits() {
+        for (Trait trait : selectedJob.getJobTraits()) {
+            traits.add(trait);
+        }
+    }
+
     public Race getSelectedRace() {
         return selectedRace;
     }
 
     public Job getSelectedJob() {
         return selectedJob;
+    }
+
+    public ArrayList<Trait> getTraits() {
+        return traits;
+    }
+
+    public void addCantrip(Spell spell) {
+        knownCantrips.add(spell);
+    }
+
+    public void addSpell(Spell spell) {
+        knownSpells.add(spell);
     }
 
 }
