@@ -43,18 +43,20 @@ public class CommandLibrary {
     }
 
     public void parseCommand(String commandInput, ClientHandler clientHandler) {
-
+        System.out.println("Parsing command: " + commandInput);
         for (Pattern pattern : commandLibrary) {
 
             Matcher matcher = pattern.matcher(commandInput);
             if (matcher.find()) {
 
                 if (pattern == targetCommandPattern) {
+                    System.out.println("target command pattern");
                     String targetName = matcher.group(1);
                     battle.getTarget(targetName);
                 }
 
                 if (pattern == spellCommandPattern) {
+                    System.out.println("Spell command pattern");
                     String spellName = matcher.group(1);
                     Spell spell = spellLibrary.getSpell(spellName);
                     clientHandler.broadcastMessage(spell.getName());
@@ -62,6 +64,7 @@ public class CommandLibrary {
                 }
 
                 if (pattern == systemCommandPattern) {
+                    System.out.println("System Command Pattern");
                     String systemCommand = matcher.group(1);
                     Random random = new Random();
 
@@ -120,7 +123,7 @@ public class CommandLibrary {
                             clientHandler.privateMessage("");
                         }
                         String jobName = clientHandler.listenForClientResponse();
-                        Job selectedJob = jobLibrary.getJob(jobName);
+                        Job selectedJob = jobLibrary.getJob(jobName.trim());
 
                         clientHandler.privateMessage("Another Excellent Choice!");
                         clientHandler.privateMessage("Now we will proceed with creating your character!");

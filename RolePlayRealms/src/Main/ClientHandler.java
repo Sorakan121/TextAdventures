@@ -19,15 +19,17 @@ public class ClientHandler implements Runnable {
     private Character selectedCharacter;
 
     public ClientHandler(Socket socket) {
-        mainLibrary = new MainLibrary(this);
-        commandLibrary = mainLibrary.getCommandLibrary();
+        this.socket = socket;
         try {
-            this.socket = socket;
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.clientUsername = bufferedReader.readLine();
+            this.clientUsername = requestUsername();
+            this.privateMessage("Hello " + clientUsername + " and welcome!");
             clientHandlers.add(this);
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat!");
+
+            this.mainLibrary = new MainLibrary(this);
+            this.commandLibrary = mainLibrary.getCommandLibrary();
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
@@ -109,5 +111,17 @@ public class ClientHandler implements Runnable {
 
     public void setSelectedCharacter(Character character) {
         this.selectedCharacter = character;
+    }
+
+    private String requestUsername() throws IOException{
+        String username = null;
+        while (username == null || username.trim().isEmpty()) {
+            this.privateMessage("Please input your desired username:");
+            username = bufferedReader.readLine();
+            if (username == null || username.trim().isEmpty()) {
+                this.privateMessage("Username cannot be empty");
+            }
+        }
+        return username;
     }
 }

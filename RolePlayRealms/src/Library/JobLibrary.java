@@ -11,6 +11,7 @@ public class JobLibrary {
     private SpellLibrary spellLibrary;
     private EquipmentLibrary equipmentLibrary;
     private ArrayList<Job> jobLibrary;
+    private Job selectedJob;
 
     public JobLibrary(MainLibrary mainLibrary) {
         this.mainLibrary = mainLibrary;
@@ -564,9 +565,9 @@ public class JobLibrary {
     }
 
     public Job getJob(String jobName) {
-        Job selectedJob = null;
+        selectedJob = null;
         for (Job job : jobLibrary) {
-            if (job.getName().equals(jobName)) {
+            if (job.getName().equals(jobName.trim())) {
                 selectedJob = job;
                 break;
             }

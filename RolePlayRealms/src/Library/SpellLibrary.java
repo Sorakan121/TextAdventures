@@ -1,5 +1,6 @@
 package Library;
 
+import Objects.Job;
 import Objects.Spell;
 import Main.Battle;
 
@@ -9,6 +10,7 @@ public class SpellLibrary {
     private MainLibrary mainLibrary;
     private ArrayList<Spell> spellLibrary;
     private Battle battle;
+    private Spell selectedSpell;
 
     public SpellLibrary(MainLibrary mainLibrary, Battle battle) {
         this.mainLibrary = mainLibrary;
@@ -1398,13 +1400,11 @@ public class SpellLibrary {
     }
 
     public Spell getSpell(String spellName) {
-        Spell selectedSpell = null;
+        selectedSpell = null;
         for (Spell spell : spellLibrary) {
-            if (spell.getName().equals(spellName)) {
+            if (spell.getName().equals(spellName.trim())) {
                 selectedSpell = spell;
                 break;
-            } else {
-                System.out.println("This spell does not exist");
             }
         }
         return selectedSpell;
