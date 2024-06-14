@@ -1397,10 +1397,12 @@ public class SpellLibrary {
                 "damage increases by 1d12 for each slot level above 1st.", mainLibrary);
         spellLibrary.add(witchBolt);
 
+        System.out.println("Spell Library Completed");
+
     }
 
     public Spell getSpell(String spellName) {
-        selectedSpell = null;
+
         for (Spell spell : spellLibrary) {
             if (spell.getName().equals(spellName.trim())) {
                 selectedSpell = spell;

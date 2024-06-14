@@ -15,7 +15,7 @@ public class ClientHandler implements Runnable {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private String clientUsername;
+    private String clientUsername, userName;
     private Character selectedCharacter;
 
     public ClientHandler(Socket socket) {
@@ -114,14 +114,14 @@ public class ClientHandler implements Runnable {
     }
 
     private String requestUsername() throws IOException{
-        String username = null;
-        while (username == null || username.trim().isEmpty()) {
+
+        while (userName == null || userName.trim().isEmpty()) {
             this.privateMessage("Please input your desired username:");
-            username = bufferedReader.readLine();
-            if (username == null || username.trim().isEmpty()) {
+            userName = bufferedReader.readLine();
+            if (userName == null || userName.trim().isEmpty()) {
                 this.privateMessage("Username cannot be empty");
             }
         }
-        return username;
+        return userName;
     }
 }

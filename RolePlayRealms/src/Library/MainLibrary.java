@@ -16,9 +16,10 @@ public class MainLibrary {
         this.equipmentLibrary = new EquipmentLibrary();
         this.traitLibrary = new TraitLibrary(this, battle);
         this.spellLibrary = new SpellLibrary(this, battle);
-        this.raceLibrary = new RaceLibrary(this);
-        this.jobLibrary = new JobLibrary(this);
-        this.commandLibrary = new CommandLibrary(this, battle);
+        this.raceLibrary = new RaceLibrary(this, traitLibrary, spellLibrary);
+        this.jobLibrary = new JobLibrary(this, equipmentLibrary, traitLibrary, spellLibrary);
+        this.commandLibrary = new CommandLibrary(this, battle, equipmentLibrary, traitLibrary, spellLibrary,
+                raceLibrary, jobLibrary);
     }
 
     public CommandLibrary getCommandLibrary() {

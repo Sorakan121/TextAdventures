@@ -9,6 +9,7 @@ public class TraitLibrary {
     private MainLibrary mainLibrary;
     private ArrayList<Trait> traitLibrary;
     private Battle battle;
+    private Trait selectedTrait;
 
     public TraitLibrary(MainLibrary mainLibrary, Battle battle) {
         this.mainLibrary = mainLibrary;
@@ -319,6 +320,8 @@ public class TraitLibrary {
                 "shield and still gain this benefit.", mainLibrary);
         traitLibrary.add(unarmoredDefense);
 
+        System.out.println("Trait Library Completed");
+
     }
 
     public ArrayList<Trait> getTraitLibrary() {
@@ -326,7 +329,6 @@ public class TraitLibrary {
     }
 
     public Trait getTrait(String traitName) {
-        Trait selectedTrait = null;
 
         for (Trait trait : traitLibrary) {
             if (trait.getName().equals(traitName)) {

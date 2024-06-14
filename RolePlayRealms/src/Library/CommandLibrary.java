@@ -22,15 +22,19 @@ public class CommandLibrary {
     private Pattern spellCommandPattern, targetCommandPattern, systemCommandPattern;
     private Battle battle;
     private ClientHandler clientHandler;
+    private EquipmentLibrary equipmentLibrary;
+    private TraitLibrary traitLibrary;
 
-    public CommandLibrary(MainLibrary mainLibrary, Battle battle) {
+    public CommandLibrary(MainLibrary mainLibrary, Battle battle, EquipmentLibrary equipmentLibrary,
+                          TraitLibrary traitLibrary, SpellLibrary spellLibrary, RaceLibrary raceLibrary, JobLibrary jobLibrary) {
         this.mainLibrary = mainLibrary;
-        this.battle = battle;
+        this.battle = battle;this.equipmentLibrary = equipmentLibrary;
+        this.traitLibrary = traitLibrary;
+        this.spellLibrary = spellLibrary;
+        this.raceLibrary = raceLibrary;
+        this.jobLibrary = jobLibrary;
         commandLibrary = new ArrayList<>();
-        raceLibrary = mainLibrary.getRaceLibrary();
-        jobLibrary = mainLibrary.getJobLibrary();
-
-        spellLibrary = mainLibrary.getSpellLibrary();
+        this.spellLibrary = mainLibrary.getSpellLibrary();
 
         spellCommandPattern = Pattern.compile("#(.*?)#");
         commandLibrary.add(spellCommandPattern);
@@ -104,6 +108,7 @@ public class CommandLibrary {
                         System.out.println("character creation");
                         clientHandler.privateMessage("Please input a character name.");
                         String characterName = clientHandler.listenForClientResponse();
+                        System.out.println(characterName);
 
                         clientHandler.privateMessage("Please Select a Race.");
                         for (Race race : raceLibrary.getRaceLibrary()) {
@@ -112,7 +117,9 @@ public class CommandLibrary {
                             clientHandler.privateMessage("");
                         }
                         String raceName = clientHandler.listenForClientResponse();
+                        System.out.println(raceName);
                         Race selectedRace = raceLibrary.getRace(raceName);
+                        System.out.println(selectedRace);
 
                         clientHandler.privateMessage("Nice Choice!");
                         clientHandler.privateMessage("Next, we need you to select a desired Job for your character.");
@@ -123,7 +130,9 @@ public class CommandLibrary {
                             clientHandler.privateMessage("");
                         }
                         String jobName = clientHandler.listenForClientResponse();
+                        System.out.println(jobName);
                         Job selectedJob = jobLibrary.getJob(jobName.trim());
+                        System.out.println(selectedJob);
 
                         clientHandler.privateMessage("Another Excellent Choice!");
                         clientHandler.privateMessage("Now we will proceed with creating your character!");

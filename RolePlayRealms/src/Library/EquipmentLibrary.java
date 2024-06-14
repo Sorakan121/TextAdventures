@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class EquipmentLibrary {
     private ArrayList<Equipment> equipmentLibrary;
+    private Equipment selectedEquipment;
 
     public EquipmentLibrary() {
         equipmentLibrary = new ArrayList<>();
@@ -144,6 +145,8 @@ public class EquipmentLibrary {
         Equipment spellbook = new Equipment("Spellbook", "");
         equipmentLibrary.add(spellbook);
 
+        System.out.println("Equipment Library Completed");
+
     }
 
     public ArrayList<Equipment> getEquipmentLibrary() {
@@ -151,7 +154,6 @@ public class EquipmentLibrary {
     }
 
     public Equipment getEquipment(String equipmentName) {
-        Equipment selectedEquipment = null;
 
         for (Equipment equipment : equipmentLibrary) {
             if (equipment.getName().equals(equipmentName) == true) {
